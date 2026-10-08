@@ -1,1 +1,154 @@
+/* ============================================
+   Devniques Shared CSS — Navbar + Footer + Theme
+   SINGLE SOURCE for navbar/footer styles and unified theme.
+   Loaded by both index.html and ai-automation.html.
+   Edit here once — applies to both pages.
+   ============================================ */
 
+/* --- Unified theme (logo colors) --- */
+/* === Devniques unified theme (logo-based) + shared navbar/footer === */
+:root{
+  --dv-navy:#04070e; --dv-navy2:#16295c;
+  --dv-blue:#2f7ff7; --dv-cyan:#00f0ff;
+  --dv-text:#ffffff; --dv-text2:#f2f6fd;
+  --dv-muted:#b9c8e4; --dv-muted2:#8b98b8;
+}
+/* Blurry background effect */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1;
+  background:
+    radial-gradient(900px 500px at 15% 10%, rgba(47,127,247,.14), transparent 60%),
+    radial-gradient(800px 500px at 85% 20%, rgba(0,240,255,.10), transparent 60%),
+    radial-gradient(1000px 700px at 50% 100%, rgba(22,41,92,.55), transparent 70%),
+    var(--dv-navy);
+  filter:blur(2px);
+}
+/* Navbar links/buttons slightly right */
+.ln-nav-inner .ln-links{position:static;transform:none;margin-left:auto;margin-right:30px;}
+.ln-nav-inner .ln-nav-cta{margin-left:0;}
+/* Content visible by default (no JS dependency) */
+.rv{opacity:1 !important; transform:none !important;}
+[data-hero]{opacity:1 !important; transform:none !important;}
+
+/* --- Navbar + Footer styles --- */
+
+
+.ln-nav.nav-hidden{transform:none!important}
+
+
+.brand img{height:36px;width:auto}
+
+
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+
+
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.3fr;gap:40px;margin-bottom:56px}
+
+
+.f-brand img{height:38px;width:auto;margin-bottom:18px}
+
+
+.f-brand p{color:var(--muted);font-size:14.5px;line-height:1.7;margin-bottom:20px}
+
+
+.f-social{display:flex;gap:12px}
+
+
+.f-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:var(--cyan);transition:background .2s,color .2s,transform .2s}
+
+
+.f-social a:hover{background:var(--cyan);color:#050d24;transform:translateY(-3px)}
+
+
+.footer-col h4{color:#fff;font-size:14px;font-weight:700;margin-bottom:20px;letter-spacing:1.5px;text-transform:uppercase}
+
+
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+
+
+.footer-col ul a{color:var(--muted);font-size:14.5px;transition:color .2s;cursor:pointer}
+
+
+.footer-col ul a:hover{color:var(--cyan)}
+
+
+.f-contact p{color:var(--muted);font-size:14px;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;line-height:1.55}
+
+
+.f-contact p i{color:var(--cyan);margin-top:4px;flex-shrink:0}
+
+
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:26px;display:flex;justify-content:space-between;align-items:center;color:#8ba0c4;font-size:13.5px;flex-wrap:wrap;gap:14px}
+
+
+.fb-links{display:flex;gap:22px;flex-wrap:wrap}
+
+
+.fb-links a{color:#8ba0c4;transition:color .2s}
+
+
+.fb-links a:hover{color:var(--cyan)}
+
+@media(max-width:768px){
+
+  .burger{display:block}
+
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:560px){
+.footer-grid{grid-template-columns:1fr}
+.footer-bottom{flex-direction:column;align-items:flex-start}
+}
+
+
+.ln-nav{position:fixed;top:0;left:0;right:0;z-index:200;border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+
+
+.ln-nav.scrolled{background:rgba(4,7,14,.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom-color:rgba(148,184,255,.1)}
+
+
+.ln-nav-inner{display:flex;align-items:center;height:68px;position:relative}
+
+
+.ln-nav .brand img{height:34px;width:auto;display:block}
+
+
+.ln-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:34px;list-style:none;margin:0;padding:0;white-space:nowrap}
+
+
+.ln-links a{color:#a9b6d3;font-size:14.5px;font-weight:500;transition:color .2s}
+
+
+.ln-links a:hover{color:#fff}
+
+
+.ln-links a.on{color:#fff}
+
+
+.ln-nav-cta{margin-left:auto;flex-shrink:0}
+
+
+.ln-nav .burger{display:none;background:none;border:none;cursor:pointer;padding:8px;margin-left:auto}
+
+@media(max-width:900px){
+
+.ln-nav .burger{display:block}
+
+.ln-links{position:fixed;top:68px;left:12px;right:12px;transform:none;flex-direction:column;gap:0;background:#0a1428;border:1px solid rgba(148,184,255,.16);border-radius:14px;padding:10px;display:none;box-shadow:0 30px 60px rgba(0,0,0,.5);z-index:300}
+
+.ln-links.open{display:flex}
+
+.ln-links li a{display:block;padding:13px 16px;font-size:15.5px}
+
+.ln-nav-cta{display:none}
+}
+
+
+/* Navbar links/buttons slightly right */
+.ln-nav-inner .ln-links{position:static;transform:none;margin-left:auto;margin-right:30px;}
+
+
+.ln-nav-inner .ln-nav-cta{margin-left:0;}
+/* Footer container — shared */
+footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 32px}
