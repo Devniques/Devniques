@@ -201,6 +201,15 @@ section{padding:96px 0}
 
   *,*::before,*::after{transition-duration:.01ms!important}
 }
+
+/* Calm dual-video backdrop: dimmed, slow, and readable over all footage. */
+.ln-hero-video-layer{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#101f42}
+.ln-hero-video-layer video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:brightness(.34) saturate(.52) blur(1px);transform:scale(1.04);transition:opacity 2.4s ease-in-out}
+.ln-hero-video-layer video.is-active{opacity:.46}
+.ln-hero-video-layer::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,25,57,.65),rgba(18,39,83,.55) 42%,#16295c 98%);pointer-events:none}
+.ln-hero::before{z-index:1}
+.ln-hero-inner{z-index:2}
+@media(prefers-reduced-motion:reduce){.ln-hero-video-layer video{display:none}}
 </style>
 <style>
 /* ===== MOTION SYSTEM (Linear-style) ===== */
@@ -424,6 +433,15 @@ body{background:#04070e!important;color:#f2f6fd}
 <div id="navbar"></div>
 
 <section class="ln-hero" id="top">
+  <div class="ln-hero-video-layer" aria-hidden="true">
+    <video class="is-active" autoplay muted loop playsinline preload="metadata" disablepictureinpicture>
+      <source src="https://videos.pexels.com/video-files/3129671/3129671-sd_640_360_30fps.mp4" type="video/mp4">
+    </video>
+    <video autoplay muted loop playsinline preload="metadata" disablepictureinpicture>
+      <source src="https://videos.pexels.com/video-files/33839224/14360680_1920_1080_30fps.mp4" type="video/mp4">
+    </video>
+  </div>
+
   <div class="wrap ln-hero-inner">
     <h1 data-hero style="--hd:1">Smart <span class="grad">Technology</span> Solutions</h1>
     <p class="ln-sub" data-hero style="--hd:2">We deliver innovative digital, cloud, and software solutions designed to streamline operations, enhance customer experiences, and accelerate business growth in a rapidly evolving digital world.</p>
@@ -1319,6 +1337,34 @@ const CHARTS={"mdm": {"line": "M0,95 C33,95 67,82 100,82 C133,82 167,68 200,68 C
   }
   if(reduce){convos.forEach(c=>c.forEach(s=>{addMsg('ln-msg in',s.u);addMsg('ln-msg out',s.a);}));}
   else{run();}
+})();
+</script>
+
+<script>
+/* Alternate two quietly looping clips; never flash on a failed or unloaded video. */
+(function(){
+  const layer=document.querySelector('.ln-hero-video-layer');
+  if(!layer)return;
+  const clips=[...layer.querySelectorAll('video')];
+  const motion=matchMedia('(prefers-reduced-motion: reduce)');
+  let active=0,timer=null;
+  const pauseAll=()=>{clearInterval(timer);timer=null;clips.forEach(v=>v.pause());};
+  function start(){
+    pauseAll();
+    if(motion.matches||document.hidden)return;
+    clips.forEach(v=>{v.muted=true;v.playbackRate=.65;v.play().catch(()=>{});});
+    timer=setInterval(()=>{
+      const next=1-active;
+      if(clips[next].readyState<2)return;
+      clips[next].classList.add('is-active');
+      clips[active].classList.remove('is-active');
+      active=next;
+    },12000);
+  }
+  document.addEventListener('visibilitychange',start);
+  if(motion.addEventListener)motion.addEventListener('change',start);
+  clips.forEach(v=>v.addEventListener('canplay',()=>{if(!motion.matches&&!document.hidden)v.play().catch(()=>{});},{once:true}));
+  start();
 })();
 </script>
 
