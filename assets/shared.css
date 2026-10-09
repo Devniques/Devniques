@@ -166,7 +166,10 @@ body:not(.loaded) {overflow:auto!important}
 #sprog {width:100%;height:2px;transform:scaleX(0);transform-origin:left;background:var(--dv-blue);pointer-events:none}
 [data-hero],body.loaded [data-hero],.rv {opacity:1;transform:none;transition:none}
 .dv-word {display:inline-block;animation:dv-enter .55s var(--ease) both;animation-delay:calc(.16s + var(--word,0)*35ms)}
-.grad .dv-word,.accent .dv-word {background:inherit;background-clip:text;-webkit-background-clip:text}
+/* Clip the gradient only on the animated word, never on both nested layers. */
+.ln-hero h1.word-reveal .grad,.lx-hero h1.word-reveal .accent {background:none}
+.grad .dv-word {background:linear-gradient(110deg,var(--dv-text2),var(--dv-blue));background-clip:text;-webkit-background-clip:text}
+.accent .dv-word {background:linear-gradient(100deg,var(--dv-blue),var(--dv-cyan));background-clip:text;-webkit-background-clip:text}
 .hero-step {animation:dv-enter .65s var(--ease) both;animation-delay:calc(.12s + var(--step,0)*80ms)}
 .rv.reveal-ready {opacity:0;transform:translateY(24px);transition:opacity .65s var(--ease),transform .65s var(--ease);transition-delay:calc(var(--step,0)*75ms)}
 .rv.reveal-ready.in {opacity:1;transform:none}

@@ -27,6 +27,7 @@
   });
   const headline = hero && hero.querySelector('h1');
   if (headline) {
+    headline.classList.add('word-reveal');
     const walker = document.createTreeWalker(headline, NodeFilter.SHOW_TEXT);
     const nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
